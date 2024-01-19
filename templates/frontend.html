@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>csgoroll stats</title>
+</head>
+<style>
+    body
+    {
+        background-color: #20242b;
+    }
+    p
+    {
+        color: #fefeff;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    #data
+    {
+        color: #fefeff;
+        font-family: 'Courier New', Courier, monospace;
+        margin-left: 1.5rem;
+
+    }
+    
+    /* CSS pro zelenou kuličku */
+    .green-circle {
+        width: 1rem; /* Šířka kuličky */
+        height: 1rem; /* Výška kuličky */
+        background-color: #00c64c; /* Barva kuličky - nastavte na přesný odstín zelené, který chcete */
+        border-radius: 50%; /* Zaoblení pro vytvoření kruhu */
+        display: inline-block; /* Aby se kulička mohla zobrazit vedle textu */
+        vertical-align: middle; /* Aby byla kulička zarovnaná s textem */
+        margin-right: 10px; /* Odstup mezi kuličkou a textem */
+        margin-left: 2rem;
+    }
+</style>
+<body>
+    <p>actual green count : (per last 115 games)</p>
+    <div class="green-circle">
+        <div id="data">Načítání...</div>
+        <script>
+            function loadData() {
+                fetch('http://127.0.0.1:5000/data')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('data').textContent = data.value;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+    
+            // Automatické načítání dat každých 5 sekund
+            setInterval(loadData, 5000);
+    
+            // Načtení dat ihned po načtení stránky
+            window.onload = loadData;
+        </script>
+    </div>
+    
+    
+</body>
+</html>
